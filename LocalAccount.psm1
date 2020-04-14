@@ -506,7 +506,7 @@ function Enable-LocalUser
 .DESCRIPTION
    Add a local user to a local group in the Targeted computername
 .EXAMPLE
-   Add-LocalGroupMember -name TestUser1 -groupname Testgroup -computername remotepc1
+   Add-LocalGroupMember -Group Testgroup -Member TestUser1 -computername remotepc1
 #>
 function Add-LocalGroupMember
 {
@@ -528,7 +528,7 @@ function Add-LocalGroupMember
         [Parameter(Mandatory=$true,
                    ValueFromPipelineByPropertyName=$true,
                    Position=2)]
-        [string[]]$name
+        [string[]]$Member
 
         
     )
@@ -539,7 +539,7 @@ function Add-LocalGroupMember
     Process
     {
     $group = [ADSI]"WinNT://$($computername[0])/$($groupname[0]),group" 
-    $group.add("WinNT://$($Name[0]),user")
+    $group.add("WinNT://$($Member[0]),user")
     
     }
     End
